@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="apartment" EntityType="Database1Model.apartment" />
+    <EntitySet Name="client" EntityType="Database1Model.client" />
+    <EntitySet Name="employee" EntityType="Database1Model.employee" />
+    <EntitySet Name="register" EntityType="Database1Model.register" />
+    <EntitySet Name="service" EntityType="Database1Model.service" />
+    <EntitySet Name="service_register" EntityType="Database1Model.service_register" />
+    <AssociationSet Name="FK_register_apartment" Association="Database1Model.FK_register_apartment">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="register" EntitySet="register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_register_client" Association="Database1Model.FK_register_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="register" EntitySet="register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_employee1" Association="Database1Model.FK_service_employee1">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="service" EntitySet="service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_register_register" Association="Database1Model.FK_service_register_register">
+      <End Role="register" EntitySet="register" />
+      <End Role="service_register" EntitySet="service_register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_register_service" Association="Database1Model.FK_service_register_service">
+      <End Role="service" EntitySet="service" />
+      <End Role="service_register" EntitySet="service_register" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="apartment">
+    <Key>
+      <PropertyRef Name="id_apartment" />
+    </Key>
+    <Property Name="id_apartment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="num_apartment" Type="Int32" Nullable="false" />
+    <Property Name="category_apartment" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kolvo_mest" Type="Int32" Nullable="false" />
+    <Property Name="price_day" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="register" Relationship="Database1Model.FK_register_apartment" FromRole="apartment" ToRole="register" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pasport" Type="Int32" Nullable="false" />
+    <Property Name="phone_num" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="register" Relationship="Database1Model.FK_register_client" FromRole="client" ToRole="register" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id_employee" />
+    </Key>
+    <Property Name="id_employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="post" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="num_phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="service" Relationship="Database1Model.FK_service_employee1" FromRole="employee" ToRole="service" />
+  </EntityType>
+  <EntityType Name="register">
+    <Key>
+      <PropertyRef Name="id_register" />
+    </Key>
+    <Property Name="id_register" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_client" Type="Int32" Nullable="false" />
+    <Property Name="id_apartment" Type="Int32" Nullable="false" />
+    <Property Name="date_register" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="date_out" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="apartment" Relationship="Database1Model.FK_register_apartment" FromRole="register" ToRole="apartment" />
+    <NavigationProperty Name="client" Relationship="Database1Model.FK_register_client" FromRole="register" ToRole="client" />
+    <NavigationProperty Name="service_register" Relationship="Database1Model.FK_service_register_register" FromRole="register" ToRole="service_register" />
+  </EntityType>
+  <EntityType Name="service">
+    <Key>
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_service" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_service" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price_service" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="id_employee" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="employee" Relationship="Database1Model.FK_service_employee1" FromRole="service" ToRole="employee" />
+    <NavigationProperty Name="service_register" Relationship="Database1Model.FK_service_register_service" FromRole="service" ToRole="service_register" />
+  </EntityType>
+  <EntityType Name="service_register">
+    <Key>
+      <PropertyRef Name="id_register" />
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_register" Type="Int32" Nullable="false" />
+    <Property Name="id_service" Type="Int32" Nullable="false" />
+    <Property Name="kolvo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="register" Relationship="Database1Model.FK_service_register_register" FromRole="service_register" ToRole="register" />
+    <NavigationProperty Name="service" Relationship="Database1Model.FK_service_register_service" FromRole="service_register" ToRole="service" />
+  </EntityType>
+  <Association Name="FK_register_apartment">
+    <End Type="Database1Model.apartment" Role="apartment" Multiplicity="1" />
+    <End Type="Database1Model.register" Role="register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="id_apartment" />
+      </Principal>
+      <Dependent Role="register">
+        <PropertyRef Name="id_apartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_register_client">
+    <End Type="Database1Model.client" Role="client" Multiplicity="1" />
+    <End Type="Database1Model.register" Role="register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="register">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_employee1">
+    <End Type="Database1Model.employee" Role="employee" Multiplicity="1" />
+    <End Type="Database1Model.service" Role="service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="id_employee" />
+      </Principal>
+      <Dependent Role="service">
+        <PropertyRef Name="id_employee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_register_register">
+    <End Type="Database1Model.register" Role="register" Multiplicity="1" />
+    <End Type="Database1Model.service_register" Role="service_register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="register">
+        <PropertyRef Name="id_register" />
+      </Principal>
+      <Dependent Role="service_register">
+        <PropertyRef Name="id_register" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_register_service">
+    <End Type="Database1Model.service" Role="service" Multiplicity="1" />
+    <End Type="Database1Model.service_register" Role="service_register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="service_register">
+        <PropertyRef Name="id_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

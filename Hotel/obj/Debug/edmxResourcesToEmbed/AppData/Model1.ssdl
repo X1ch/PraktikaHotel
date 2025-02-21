@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="apartment">
+    <Key>
+      <PropertyRef Name="id_apartment" />
+    </Key>
+    <Property Name="id_apartment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="num_apartment" Type="int" Nullable="false" />
+    <Property Name="category_apartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kolvo_mest" Type="int" Nullable="false" />
+    <Property Name="price_day" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pasport" Type="int" Nullable="false" />
+    <Property Name="phone_num" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id_employee" />
+    </Key>
+    <Property Name="id_employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="post" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="num_phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="register">
+    <Key>
+      <PropertyRef Name="id_register" />
+    </Key>
+    <Property Name="id_register" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_client" Type="int" Nullable="false" />
+    <Property Name="id_apartment" Type="int" Nullable="false" />
+    <Property Name="date_register" Type="date" Nullable="false" />
+    <Property Name="date_out" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service">
+    <Key>
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_service" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name_service" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="price_service" Type="money" Nullable="false" />
+    <Property Name="id_employee" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service_register">
+    <Key>
+      <PropertyRef Name="id_register" />
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_register" Type="int" Nullable="false" />
+    <Property Name="id_service" Type="int" Nullable="false" />
+    <Property Name="kolvo" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_register_apartment">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
+    <End Role="register" Type="Self.register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="id_apartment" />
+      </Principal>
+      <Dependent Role="register">
+        <PropertyRef Name="id_apartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_register_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="register" Type="Self.register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="register">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_employee1">
+    <End Role="employee" Type="Self.employee" Multiplicity="1" />
+    <End Role="service" Type="Self.service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="id_employee" />
+      </Principal>
+      <Dependent Role="service">
+        <PropertyRef Name="id_employee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_register_register">
+    <End Role="register" Type="Self.register" Multiplicity="1" />
+    <End Role="service_register" Type="Self.service_register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="register">
+        <PropertyRef Name="id_register" />
+      </Principal>
+      <Dependent Role="service_register">
+        <PropertyRef Name="id_register" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_service_register_service">
+    <End Role="service" Type="Self.service" Multiplicity="1" />
+    <End Role="service_register" Type="Self.service_register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="service_register">
+        <PropertyRef Name="id_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище Database1ModelContainer">
+    <EntitySet Name="apartment" EntityType="Self.apartment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="register" EntityType="Self.register" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_register" EntityType="Self.service_register" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_register_apartment" Association="Self.FK_register_apartment">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="register" EntitySet="register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_register_client" Association="Self.FK_register_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="register" EntitySet="register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_employee1" Association="Self.FK_service_employee1">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="service" EntitySet="service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_register_register" Association="Self.FK_service_register_register">
+      <End Role="register" EntitySet="register" />
+      <End Role="service_register" EntitySet="service_register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_service_register_service" Association="Self.FK_service_register_service">
+      <End Role="service" EntitySet="service" />
+      <End Role="service_register" EntitySet="service_register" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

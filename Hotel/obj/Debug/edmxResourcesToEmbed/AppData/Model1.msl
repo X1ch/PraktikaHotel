@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities">
+    <EntitySetMapping Name="apartment">
+      <EntityTypeMapping TypeName="Database1Model.apartment">
+        <MappingFragment StoreEntitySet="apartment">
+          <ScalarProperty Name="price_day" ColumnName="price_day" />
+          <ScalarProperty Name="kolvo_mest" ColumnName="kolvo_mest" />
+          <ScalarProperty Name="category_apartment" ColumnName="category_apartment" />
+          <ScalarProperty Name="num_apartment" ColumnName="num_apartment" />
+          <ScalarProperty Name="id_apartment" ColumnName="id_apartment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="Database1Model.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="phone_num" ColumnName="phone_num" />
+          <ScalarProperty Name="pasport" ColumnName="pasport" />
+          <ScalarProperty Name="fio" ColumnName="fio" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee">
+      <EntityTypeMapping TypeName="Database1Model.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="num_phone" ColumnName="num_phone" />
+          <ScalarProperty Name="post" ColumnName="post" />
+          <ScalarProperty Name="fio" ColumnName="fio" />
+          <ScalarProperty Name="id_employee" ColumnName="id_employee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="register">
+      <EntityTypeMapping TypeName="Database1Model.register">
+        <MappingFragment StoreEntitySet="register">
+          <ScalarProperty Name="date_out" ColumnName="date_out" />
+          <ScalarProperty Name="date_register" ColumnName="date_register" />
+          <ScalarProperty Name="id_apartment" ColumnName="id_apartment" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="id_register" ColumnName="id_register" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service">
+      <EntityTypeMapping TypeName="Database1Model.service">
+        <MappingFragment StoreEntitySet="service">
+          <ScalarProperty Name="id_employee" ColumnName="id_employee" />
+          <ScalarProperty Name="price_service" ColumnName="price_service" />
+          <ScalarProperty Name="name_service" ColumnName="name_service" />
+          <ScalarProperty Name="id_service" ColumnName="id_service" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_register">
+      <EntityTypeMapping TypeName="Database1Model.service_register">
+        <MappingFragment StoreEntitySet="service_register">
+          <ScalarProperty Name="kolvo" ColumnName="kolvo" />
+          <ScalarProperty Name="id_service" ColumnName="id_service" />
+          <ScalarProperty Name="id_register" ColumnName="id_register" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
