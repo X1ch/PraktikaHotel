@@ -10,12 +10,12 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="RegBtn" Content="Журнал регистрации" Margin="5" Click="RegBtn_Click"/>
-            <Button Content="Работники отеля" Margin="5" Click="Button_Click"/>
-            <Button Content="Клиенты" Margin="5" Click="Button_Click_1"/>
-            <Button x:Name="ServBtn" Content="Услуги" Margin="5" Click="ServBtn_Click"/>
-            <Button x:Name="CalcBtn" Content="Вычисления" Margin="5" Click="CalcBtn_Click"/>
-            <Button x:Name="ExitBtn" Content="Выход" Margin="5" Click="ExitBtn_Click"/>
+            <Button x:Name="RegBtn" Content="Журнал регистрации" Margin="5" Click="RegBtn_Click" FontFamily="Impact" FontSize="20"/>
+            <Button Content="Работники отеля" Margin="5" Click="Button_Click" FontFamily="Impact" FontSize="20"/>
+            <Button Content="Клиенты" Margin="5" Click="Button_Click_1" FontFamily="Impact" FontSize="20"/>
+            <Button x:Name="ServBtn" Content="Услуги" Margin="5" Click="ServBtn_Click" FontFamily="Impact" FontSize="20"/>
+            <Button x:Name="CalcBtn" Content="Вычисления" Margin="5" Click="CalcBtn_Click" FontFamily="Impact" FontSize="20"/>
+            <Button x:Name="ExitBtn" Content="Выход" Margin="5" Click="ExitBtn_Click" FontFamily="Impact" FontSize="20"/>
         </StackPanel>
     </Grid>
 </Page>
