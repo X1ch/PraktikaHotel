@@ -71,7 +71,30 @@ namespace Hotel.Pages
             {
                 service_registers.Add(new service_register() { register = registers, service = combobox3.SelectedItem as service, kolvo = n});
             }
+            //Connect.context.SaveChanges();
             //MessageBox.Show(Connect.context.service_register.Select(x => new{ x.kolvo, x.service.price_service, Sum = x.service.price_service * x.kolvo}).ToString());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var delregister = ServRegDG.SelectedItems.Cast<service_register>().ToList();
+            if (MessageBox.Show($"Удалить{delregister.Count} записей", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                Connect.context.service_register.RemoveRange(delregister);
+            try
+            {
+                Connect.context.SaveChanges();
+                ServRegDG.ItemsSource = Connect.context.register.ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        //private void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    ServRegDG.ItemsSource = Connect.context.employee.ToList();
+        //}
     }
 }
